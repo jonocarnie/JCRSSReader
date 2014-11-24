@@ -65,7 +65,20 @@ class TopicsTableTableViewController: UITableViewController, XMLParserDelegate {
         return cell
     }
     
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 80
+    }
 
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let dictionary = xmlParser.arrParsedData[indexPath.row] as Dictionary<String, String>
+        let tutorialLink = dictionary["link"]
+        
+        let tutorialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("idTutorialViewController") as TutorialViewController
+        tutorialViewController.tutorialURL = NSURL(string: tutorialLink!)
+        showDetailViewController(tutorialViewController, sender: self)
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {

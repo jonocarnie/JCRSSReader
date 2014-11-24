@@ -10,6 +10,8 @@ import UIKit
 
 class TutorialViewController: UIViewController {
     
+    var tutorialURL: NSURL!
+    
     @IBOutlet weak var webview: UIWebView!
     
     @IBOutlet weak var toolbar: UIToolbar!
@@ -25,6 +27,12 @@ class TutorialViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NSLog("Then here!")
+        
+        webview.hidden = true
+        toolbar.hidden = true
+        self.navigationItem.title = "AppCoda Tutorials"
+        
+        
 
         // Do any additional setup after loading the view.
     }
@@ -34,7 +42,22 @@ class TutorialViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if tutorialURL != nil {
+            let request : NSURLRequest = NSURLRequest(URL: tutorialURL)
+            webview.loadRequest(request)
+            
+            if webview.hidden {
+                webview.hidden = false
+                toolbar.hidden = false
+            }
+        }
+    }
 
+    
+    
     /*
     // MARK: - Navigation
 
